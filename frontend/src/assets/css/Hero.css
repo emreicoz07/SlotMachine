@@ -1,0 +1,27 @@
+.hero {
+  background-image: url('../images/slotsbg1.jpg'); /* Arka plan için bir resim ekleyin */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.cta-button {
+  padding: 10px 20px;
+  background-color: #ff4500;
+  color: rgb(255, 255, 255);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #ff5733;
+}

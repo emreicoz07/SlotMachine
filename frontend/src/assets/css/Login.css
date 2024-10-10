@@ -1,0 +1,100 @@
+/* Login sayfası konteyneri */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../images/slotsbg1.jpg'); /* Arka plan resmi */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+/* Login başlığı */
+h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #ff4500;
+}
+
+/* Form stili */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+}
+
+/* Input alanları */
+form input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  width: 100%; /* Genişliği yüzde 100 yap */
+  box-sizing: border-box; /* Padding ve border genişliği dahil et */
+}
+
+form input::placeholder {
+  color: #888;
+}
+
+/* Giriş butonu */
+button[type='submit'] {
+  padding: 10px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 300px;
+}
+
+button[type='submit']:hover {
+  background-color: #ff5733;
+}
+
+/* Hata ya da başarı mesajları */
+p {
+  margin-top: 1px;
+  color: #ff4500;
+  font-weight: bold;
+  padding: 1px;
+}
+
+.login-container p {
+  margin-top: 1px;
+  text-align: center;
+  color: white; /* Temaya uygun bir renk */
+}
+
+.login-container p a {
+  color: #ff4500;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.login-container p a:hover {
+  color: #ff5733;
+}
+/* Remember Me checkbox'ı ve label'ı aynı hizaya getirmek için */
+.remember-me-container {
+  display: flex;
+  align-items: center; /* Checkbox ve yazıyı aynı hizada tut */
+  margin-right: 250px;
+}
+
+.remember-me-container input[type='checkbox'] {
+  margin-right: 5px; /* Checkbox ile yazı arasında 5px boşluk ekleyelim */
+}
+
+.remember-me-container label {
+  margin: 0; /* Varsayılan marjı sıfırlayalım ki alt satıra geçmesin */
+  white-space: nowrap; /* Yazının satır atlamasını engeller */
+}
