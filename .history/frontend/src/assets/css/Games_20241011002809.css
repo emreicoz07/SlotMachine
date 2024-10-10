@@ -54,13 +54,10 @@
 
 .games-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 sütun sabit */
-  gap: 30px; /* Kutular arasındaki boşluk */
-  justify-content: center; /* Tüm oyun kutularını ortalar */
-  max-width: 1200px; /* Maksimum genişlik belirleyerek oyunları sabit bir alanda tut */
-  margin: 0 auto; /* Ortalamak için */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  justify-items: start; /* Oyun kutularını sola dayalı yap */
 }
-
 
 .game-item {
   background-color: white;

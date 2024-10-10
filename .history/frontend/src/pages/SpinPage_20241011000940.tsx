@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../contexts/UserContext';
 import '../assets/css/SpinPage.css';
@@ -25,17 +25,8 @@ const SpinPage: React.FC = () => {
   };
 
   const getRandomNumber = () => {
-    return Math.floor(Math.random() * 4); // 4 meyve olduğu için
+    return Math.floor(Math.random() * 4);
   };
-
-  // Spin başlamadan önce rastgele semboller gösterilsin
-  useEffect(() => {
-    const fruits = Object.keys(fruitImages); // Sembol isimlerini al
-    const a = getRandomNumber();
-    const b = getRandomNumber();
-    const c = getRandomNumber();
-    setSpinResult([fruits[a], fruits[b], fruits[c]]); // Rastgele semboller ayarla
-  }, []);
 
   // Spin başlatma ve durdurma işlevi
   const handleSpin = async () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../contexts/UserContext';
 import '../assets/css/SpinPage.css';
@@ -13,6 +13,7 @@ const SpinPage: React.FC = () => {
   const { user, updateUserBalance } = useUser();
   const [spinResult, setSpinResult] = useState<string[]>(['', '', '']);
   const [isSpinning, setIsSpinning] = useState<boolean>(false);
+  const [reelStates, setReelStates] = useState<number[]>([0, 0, 0]);
   const [isWin, setIsWin] = useState<boolean>(false);
   const [showWinOverlay, setShowWinOverlay] = useState<boolean>(false);
   const [winningsAmount, setWinningsAmount] = useState<number>(0);
@@ -25,17 +26,16 @@ const SpinPage: React.FC = () => {
   };
 
   const getRandomNumber = () => {
-    return Math.floor(Math.random() * 4); // 4 meyve olduğu için
+    return Math.floor(Math.random() * 4);
   };
 
-  // Spin başlamadan önce rastgele semboller gösterilsin
-  useEffect(() => {
+  // Rasgele semboller döndüren bir fonksiyon
+  const getFuruitResult = () => {
     const fruits = Object.keys(fruitImages); // Sembol isimlerini al
-    const a = getRandomNumber();
-    const b = getRandomNumber();
-    const c = getRandomNumber();
-    setSpinResult([fruits[a], fruits[b], fruits[c]]); // Rastgele semboller ayarla
-  }, []);
+    return [1, 2, 3].map(
+      () => fruits[Math.floor(Math.random() * fruits.length)],
+    ); // Rasgele semboller seç
+  };
 
   // Spin başlatma ve durdurma işlevi
   const handleSpin = async () => {
@@ -55,7 +55,7 @@ const SpinPage: React.FC = () => {
       const a = getRandomNumber();
       const b = getRandomNumber();
       const c = getRandomNumber();
-
+      setReelStates([a, b, c]);
       const fruits = Object.keys(fruitImages); // Sembol isimlerini al
       const resulttt = [fruits[a], fruits[b], fruits[c]];
       setSpinResult(resulttt);

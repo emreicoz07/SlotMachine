@@ -57,6 +57,8 @@
   border-radius: 20px;
 }
 img {
+ /* margin-top: -240px;*/
+  padding: 10px;
   width: 120px; /* Genişliği 100px olarak ayarlıyoruz */
   height: auto; /* Yüksekliği 100px olarak ayarlıyoruz */
 }
