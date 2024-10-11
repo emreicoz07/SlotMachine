@@ -77,12 +77,9 @@ const SpinPage: React.FC = () => {
         clearInterval(intervalId); // Makaraları durdur
 
         try {
-          const response = await axios.post(
-            '${process.env.REACT_APP_API_URL}/api/spin',
-            {
-              email: user.email,
-            },
-          );
+          const response = await axios.post('http://localhost:4000/api/spin', {
+            email: user.email,
+          });
           const { result, winnings, balance: newBalance } = response.data;
 
           setSpinResult(result); // Spin sonuçlarını ayarla

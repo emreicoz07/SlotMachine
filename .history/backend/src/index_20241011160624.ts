@@ -3,9 +3,6 @@ import cors from 'cors';
 import gamesRoutes from './routes/gamesRoutes'; // Oyun rotasını dahil ediyoruz
 import authRoutes from './routes/authRoutes'; // Auth rotasını dahil ediyoruz
 import spinRoutes from './routes/SpinRoutes'; // Yeni spin rotasını dahil ediyoruz
-import dotenv from 'dotenv';
-
-dotenv.config(); // .env dosyasındaki çevresel değişkenleri kullan
 
 const app = express();
 
@@ -13,14 +10,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS middleware - frontend URL'ini çevresel değişkenden çek
+// CORS middleware
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // frontend URL'ini .env'den al
+    origin: 'http://localhost:3000', // frontend'in çalıştığı port
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // İzin verilen HTTP metodları
     credentials: true, // Cookie ve session bilgilerini kabul etmek için
-  })
+  }),
 );
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Preflight (OPTIONS) isteklerini kabul ediyoruz
 app.options('*', cors());

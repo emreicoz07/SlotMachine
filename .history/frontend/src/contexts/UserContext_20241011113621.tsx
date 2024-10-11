@@ -34,7 +34,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       if (user.email) {
         try {
           const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/auth/balance/${user.email}`,
+            `http://localhost:4000/api/auth/balance/${user.email}`,
           );
           setUser((prevUser) => ({
             ...prevUser,

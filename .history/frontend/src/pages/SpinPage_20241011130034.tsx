@@ -42,7 +42,7 @@ const SpinPage: React.FC = () => {
     try {
       // Backend'den balance bilgisini güncelle
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/auth/balance/${user.email}`,
+        `http://localhost:4000/api/auth/balance/${user.email}`,
       );
       const { balance: currentBalance } = response.data;
 
@@ -77,12 +77,9 @@ const SpinPage: React.FC = () => {
         clearInterval(intervalId); // Makaraları durdur
 
         try {
-          const response = await axios.post(
-            '${process.env.REACT_APP_API_URL}/api/spin',
-            {
-              email: user.email,
-            },
-          );
+          const response = await axios.post('http://localhost:4000/api/spin', {
+            email: user.email,
+          });
           const { result, winnings, balance: newBalance } = response.data;
 
           setSpinResult(result); // Spin sonuçlarını ayarla
