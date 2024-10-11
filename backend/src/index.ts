@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // CORS middleware - frontend URL'ini çevresel değişkenden çek
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // frontend URL'ini .env'den al
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // İzin verilen HTTP metodları
     credentials: true, // Cookie ve session bilgilerini kabul etmek için
   }),
