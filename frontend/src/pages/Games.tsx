@@ -24,7 +24,7 @@ const Games: React.FC = () => {
     const fetchGames = async () => {
       try {
         const response = await axios.get(
-          '${process.env.REACT_APP_API_URL}/api/games',
+          `${process.env.REACT_APP_API_URL}/api/games`,
         );
         setGames(response.data);
       } catch (error) {

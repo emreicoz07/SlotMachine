@@ -13,7 +13,7 @@ const ChangePassword: React.FC = () => {
     e.preventDefault();
 
     const response = await fetch(
-      '${process.env.REACT_APP_API_URL}/api/auth/change-password',
+      `${process.env.REACT_APP_API_URL}/api/auth/change-password`,
       {
         method: 'POST',
         headers: {

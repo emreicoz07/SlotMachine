@@ -62,10 +62,6 @@ dist/
 # Next.js
 .next/
 
-# Gatsby
-.cache/
-public/
-
 # Frontend Specific
 /frontend/node_modules/
 frontend/build/
@@ -101,3 +97,4 @@ logs
 .env.development.local
 .env.test.local
 .env.production.local
+.history

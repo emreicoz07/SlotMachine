@@ -78,7 +78,7 @@ const SpinPage: React.FC = () => {
 
         try {
           const response = await axios.post(
-            '${process.env.REACT_APP_API_URL}/api/spin',
+            `${process.env.REACT_APP_API_URL}/api/spin`,
             {
               email: user.email,
             },

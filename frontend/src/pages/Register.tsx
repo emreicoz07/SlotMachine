@@ -19,7 +19,7 @@ const Register: React.FC = () => {
     }
 
     const response = await fetch(
-      '${process.env.REACT_APP_API_URL}/api/auth/register',
+      `${process.env.REACT_APP_API_URL}/api/auth/register`,
       {
         method: 'POST',
         headers: {
