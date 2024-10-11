@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import path from 'path';
 import fs from 'fs';
+import { Game } from '../models/userModel';
 
 const router = Router();
 
@@ -11,8 +12,18 @@ router.get('/games', (req, res) => {
     if (err) {
       return res.status(500).json({ message: 'Error reading game data' });
     }
-    const games = JSON.parse(data);
-    res.json(games); // JSON formatında oyun verilerini geri gönder
+    const games: Game[] = JSON.parse(data);
+    if (!req.query.search) {
+      res.json(games);
+    } else {
+      res.json(
+        games.filter((game) =>
+          game.title
+            .toLowerCase()
+            .includes((req.query.search as string).toLowerCase()),
+        ),
+      );
+    }
   });
 });
 

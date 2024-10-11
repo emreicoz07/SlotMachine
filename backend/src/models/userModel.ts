@@ -6,6 +6,16 @@ export interface User {
   password: string;
   balance: number;
 }
+
+export type Game = {
+  id: string;
+  slug: string;
+  title: string;
+  providerName: string;
+  thumb?: {
+    url: string;
+  };
+};
 //Create User
 export const createUser = async (
   email: string,
