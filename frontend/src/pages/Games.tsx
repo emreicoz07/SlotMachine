@@ -20,18 +20,20 @@ const Games: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Giriş yapıldı mı kontrolü
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/games`,
-        );
-        setGames(response.data);
-      } catch (error) {
-        console.error('Error fetching game data:', error);
-      }
-    };
+  const fetchGames = async (query?: string) => {
+    let url = `${process.env.REACT_APP_API_URL}/api/games`;
+    if (query && query.length > 0) {
+      url += `?search=${query}`;
+    }
+    try {
+      const response = await axios.get(url);
+      setGames(response.data);
+    } catch (error) {
+      console.error('Error fetching game data:', error);
+    }
+  };
 
+  useEffect(() => {
     // Sayfa her yüklendiğinde token kontrolü yapıyoruz
     const token =
       localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -40,11 +42,13 @@ const Games: React.FC = () => {
     } else {
       setIsLoggedIn(false); // Token yoksa giriş yapılmamış
     }
-
-    fetchGames();
   }, []);
 
-  const filteredGames = games.filter((game) => {
+  useEffect(() => {
+    fetchGames(searchTerm);
+  }, [searchTerm]);
+
+  /*   const filteredGames = games.filter((game) => {
     const matchesSearch = game.title
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -52,7 +56,7 @@ const Games: React.FC = () => {
       ? game.providerName === selectedProvider
       : true;
     return matchesSearch && matchesProvider;
-  });
+  }); */
 
   const handleGameClick = (gameId: number) => {
     if (!isLoggedIn) {
@@ -97,7 +101,7 @@ const Games: React.FC = () => {
           </select>
         </div>
         <div className="games-list">
-          {filteredGames.map((game) => (
+          {games.map((game) => (
             <div
               key={game.id}
               className="game-item"
