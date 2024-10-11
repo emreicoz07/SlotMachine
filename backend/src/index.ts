@@ -39,7 +39,6 @@ app.get('/', (req, res) => {
 // Sunucuyu başlatıyoruz
 const port = process.env.PORT || 10000;
 app.listen(port, async () => {
-  await pool.query(`DROP TABLE users`);
   await pool.query(`CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,  
     email   varchar(255) NOT NULL,
