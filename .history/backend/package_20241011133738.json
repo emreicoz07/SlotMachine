@@ -8,8 +8,7 @@
     "dev": "nodemon src/index.ts",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "lint:fix": "eslint 'src/**/*.{js,ts}' --fix",
-    "format": "prettier --write 'src/**/*.{js,ts,json}'",
-    "test": "jest"
+    "format": "prettier --write 'src/**/*.{js,ts,json}'"
   },
   "keywords": [],
   "author": "",
@@ -48,9 +47,5 @@
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.0"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
   }
 }

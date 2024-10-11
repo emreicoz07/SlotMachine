@@ -47,7 +47,7 @@ const SpinPage: React.FC = () => {
       const { balance: currentBalance } = response.data;
 
       // Eğer bakiyeniz sıfırsa uyarı ver ve spin işlemini durdur
-      if (currentBalance === 0) {
+      if (currentBalance === 0.0) {
         alert('Your balance is 0. Please contact the game provider.');
         return; // Spin işlemini başlatma
       }

@@ -39,68 +39,55 @@ const SpinPage: React.FC = () => {
 
   // Spin başlatma ve durdurma işlevi
   const handleSpin = async () => {
-    try {
-      // Backend'den balance bilgisini güncelle
-      const response = await axios.get(
-        `http://localhost:4000/api/auth/balance/${user.email}`,
-      );
-      const { balance: currentBalance } = response.data;
-
-      // Eğer bakiyeniz sıfırsa uyarı ver ve spin işlemini durdur
-      if (currentBalance === 0) {
-        alert('Your balance is 0. Please contact the game provider.');
-        return; // Spin işlemini başlatma
-      }
-
-      // Kullanıcının bakiyesi güncellenir
-      updateUserBalance(currentBalance);
-
-      setIsSpinning(true);
-      setIsWin(false);
-
-      const spinDuration = 4000; // Makaraların döneceği toplam süre
-      const spinInterval = 500; // Makaraların kaç ms'de bir döneceği
-
-      // Spin işlemi başlamadan önce interval başlatıyoruz
-      const intervalId = setInterval(() => {
-        const a = getRandomNumber();
-        const b = getRandomNumber();
-        const c = getRandomNumber();
-
-        const fruits = Object.keys(fruitImages); // Sembol isimlerini al
-        const resulttt = [fruits[a], fruits[b], fruits[c]];
-        setSpinResult(resulttt);
-      }, spinInterval);
-
-      // Spin sonuçlarını simüle ederek belirli bir süre sonra durduruyoruz
-      setTimeout(async () => {
-        clearInterval(intervalId); // Makaraları durdur
-
-        try {
-          const response = await axios.post('http://localhost:4000/api/spin', {
-            email: user.email,
-          });
-          const { result, winnings, balance: newBalance } = response.data;
-
-          setSpinResult(result); // Spin sonuçlarını ayarla
-          updateUserBalance(newBalance); // Kullanıcı bakiyesini güncelle
-
-          if (winnings > 0) {
-            setIsWin(true);
-            setWinningsAmount(winnings);
-            setShowWinOverlay(true);
-            setTimeout(() => setShowWinOverlay(false), 3000); // WIN ekranını 3 saniye sonra gizle
-          }
-
-          setIsSpinning(false);
-        } catch (error) {
-          console.error('Error spinning:', error);
-          setIsSpinning(false);
-        }
-      }, spinDuration); // Makaraları spinDuration süresi sonunda durdur
-    } catch (error) {
-      console.error('Error fetching user balance:', error);
+    if (user.balance === 0) {
+      // Eğer balance 0 ise alert ver ve spin işlemini durdur
+      alert('Your balance is 0. Please contact the game provider.');
+      return; // Spin işlemini başlatma
     }
+
+    setIsSpinning(true);
+    setIsWin(false);
+
+    const spinDuration = 4000; // Makaraların döneceği toplam süre
+    const spinInterval = 500; // Makaraların kaç ms'de bir döneceği
+
+    // Spin işlemi başlamadan önce interval başlatıyoruz
+    const intervalId = setInterval(() => {
+      const a = getRandomNumber();
+      const b = getRandomNumber();
+      const c = getRandomNumber();
+
+      const fruits = Object.keys(fruitImages); // Sembol isimlerini al
+      const resulttt = [fruits[a], fruits[b], fruits[c]];
+      setSpinResult(resulttt);
+    }, spinInterval);
+
+    // Spin sonuçlarını simüle ederek belirli bir süre sonra durduruyoruz
+    setTimeout(async () => {
+      clearInterval(intervalId); // Makaraları durdur
+
+      try {
+        const response = await axios.post('http://localhost:4000/api/spin', {
+          email: user.email,
+        });
+        const { result, winnings, balance: newBalance } = response.data;
+
+        setSpinResult(result); // Spin sonuçlarını ayarla
+        updateUserBalance(newBalance); // Kullanıcı bakiyesini güncelle
+
+        if (winnings > 0) {
+          setIsWin(true);
+          setWinningsAmount(winnings);
+          setShowWinOverlay(true);
+          setTimeout(() => setShowWinOverlay(false), 3000); // WIN ekranını 3 saniye sonra gizle
+        }
+
+        setIsSpinning(false);
+      } catch (error) {
+        console.error('Error spinning:', error);
+        setIsSpinning(false);
+      }
+    }, spinDuration); // Makaraları spinDuration süresi sonunda durdur
   };
 
   return (
@@ -119,7 +106,7 @@ const SpinPage: React.FC = () => {
           <button
             className="spin-button"
             onClick={handleSpin}
-            disabled={isSpinning || user.balance === 0} // balance 0 ise buton disabled
+            disabled={isSpinning || user.balance === 0} // balance 0 ise buton disable
           >
             Spin
           </button>
