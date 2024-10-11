@@ -4,6 +4,7 @@ import gamesRoutes from './routes/gamesRoutes'; // Oyun rotasını dahil ediyoru
 import authRoutes from './routes/authRoutes'; // Auth rotasını dahil ediyoruz
 import spinRoutes from './routes/SpinRoutes'; // Yeni spin rotasını dahil ediyoruz
 import dotenv from 'dotenv';
+import pool from './config/database';
 
 dotenv.config(); // .env dosyasındaki çevresel değişkenleri kullan
 
@@ -19,7 +20,7 @@ app.use(
     origin: process.env.FRONTEND_URL || 'http://localhost:3000', // frontend URL'ini .env'den al
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // İzin verilen HTTP metodları
     credentials: true, // Cookie ve session bilgilerini kabul etmek için
-  })
+  }),
 );
 
 // Preflight (OPTIONS) isteklerini kabul ediyoruz
@@ -36,7 +37,13 @@ app.get('/', (req, res) => {
 });
 
 // Sunucuyu başlatıyoruz
-const port = process.env.PORT || 10000;
-app.listen(port, () => {
+const port = 5000;
+app.listen(port, async () => {
+  await pool.query(`CREATE TABLE IF NOT EXISTS users(
+    id   integer NOT NULL PRIMARY KEY,  
+    email   varchar(255) NOT NULL,
+    password varchar(255),
+    balance int NOT NULL DEFAULT 20
+)`);
   console.log(`Server is running on port ${port}`);
 });
