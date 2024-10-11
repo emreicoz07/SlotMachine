@@ -58,8 +58,8 @@ const SpinPage: React.FC = () => {
       setIsSpinning(true);
       setIsWin(false);
 
-      const spinDuration = 4000; // Makaraların döneceği toplam süre
-      const spinInterval = 500; // Makaraların kaç ms'de bir döneceği
+      const spinDuration = 2500; // Makaraların döneceği toplam süre
+      const spinInterval = 500; // Makaraların kaç ms'de bir döneceğiz
 
       // Spin işlemi başlamadan önce interval başlatıyoruz
       const intervalId = setInterval(() => {
