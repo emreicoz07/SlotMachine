@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 });
 
 // Sunucuyu başlatıyoruz
-const port = 5000;
+const port = process.env.PORT || 10000;
 app.listen(port, async () => {
   await pool.query(`CREATE TABLE IF NOT EXISTS users(
     id   integer NOT NULL PRIMARY KEY,  
