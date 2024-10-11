@@ -1,7 +1,7 @@
 /* Sayfa stili */
 .games-page {
   padding: 50px 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(255, 69, 0, 0.8)),
+  background: linear-gradient(rgb(0 0 0 / 80%), rgb(255 69 0 / 80%)),
     url('../images/slotsbg1.jpg');
   background-size: cover;
   background-position: center;
@@ -15,11 +15,8 @@
   display: flex;
   justify-content: center; /* Ortalamak için */
   gap: 20px; /* Arama ve filtreleme kutusu arasındaki boşluk */
-  margin-bottom: 30px;
+  margin: 20px auto 30px 100px;
   max-width: 20%; /* input ölçüsü */
-  margin-left: 100px;
-  margin-right: auto;
-  margin-top: 20px;
 }
 
 .search-filter-container input[type="text"],
@@ -28,7 +25,7 @@
   border-radius: 25px;
   border: 1px solid #ff4500;
   font-size: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
   transition: box-shadow 0.3s ease-in-out;
 }
 
@@ -43,7 +40,7 @@
 .search-filter-container input[type="text"]:focus,
 .search-filter-container select:focus {
   outline: none;
-  box-shadow: 0 4px 12px rgba(255, 69, 0, 0.5);
+  box-shadow: 0 4px 12px rgb(255 69 0 / 50%);
 }
 
 /* Oyun listesi */
@@ -66,14 +63,14 @@
   background-color: white;
   width: 280px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .game-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 20%);
 }
 
 .game-item img {
@@ -85,7 +82,7 @@
 .game-item h3 {
   font-size: 1.25rem;
   color: #333;
-  padding: 15px 10px 0 10px;
+  padding: 15px 10px 0;
   text-align: center;
 }
 
@@ -93,25 +90,24 @@
   color: #777;
   font-size: 1rem;
   text-align: center;
-  padding: 0 10px 15px 10px;
+  padding: 0 10px 15px;
 }
 
 /* Responsive medya sorguları */
-@media (max-width: 1440px) {
+@media (width <= 1440px) {
   .games-list {
     grid-template-columns: repeat(3, 1fr); /* 1440px için 3 kolon */
   }
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .games-list {
     grid-template-columns: repeat(3, 1fr); /* 1024px için 2 kolon */
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .search-filter-container {
-   
     width: 100%;
     padding-left: 50px;    
     
@@ -126,7 +122,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (width <= 425px) {
   .games-list {
     grid-template-columns: repeat(1, 1fr); /* 425px için 1 kolon */
   }
@@ -136,7 +132,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (width <= 375px) {
   .games-page {
     padding: 50px 0; /* Soldan ve sağdan padding'i sıfırla */
     background-size: cover; /* Arka planın tamamen ekranı kaplamasını sağla */
@@ -149,7 +145,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (width <= 320px) {
   .games-page {
     background-size: cover; /* Arka planın tamamen ekranı kaplamasını sağla */
     background-position: center; /* Arka plan görselinin düzgün ortalanması */
@@ -169,11 +165,8 @@
 /* Popup stili */
 .popup {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  background: rgb(0 0 0 / 60%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -184,7 +177,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
   text-align: center;
 }
 

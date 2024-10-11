@@ -2,10 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.8);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent);
+  background: rgb(0 0 0 / 80%);
+  background: linear-gradient(180deg, rgb(0 0 0 / 80%), transparent);
   width: 100vw; /* Viewport genişliğini tam kaplayacak şekilde ayarladık */
-  top: 0px;
+  top: 0;
   position: fixed;
   z-index: 10; /* Sayfanın üstünde kalmasını sağladık */
 }
@@ -33,7 +33,7 @@
 
 .nav-links a:hover {
   color: #ff4500;
-  background-color: rgba(255, 69, 0, 0.2);
+  background-color: rgb(255 69 0 / 20%);
   border-radius: 5px;
 }
 

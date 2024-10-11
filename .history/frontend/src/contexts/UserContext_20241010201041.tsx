@@ -1,31 +1,14 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
-// Kullanıcı arayüzü (type veya interface olarak tanımlanabilir)
-interface User {
-  email: string | null;
-  token: string | null;
-  balance: number | null;
-}
+const UserContext = createContext<any>(null);
 
-// Context oluşturma
-const UserContext = createContext<
-  | {
-      user: User;
-      setUser: React.Dispatch<React.SetStateAction<User>>;
-      updateUserBalance: (newBalance: number) => void;
-    }
-  | undefined
->(undefined);
-
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User>({
+export const UserProvider = ({ children }: any) => {
+  const [user, setUser] = useState({
     email:
-      localStorage.getItem('userEmail') ||
-      sessionStorage.getItem('userEmail') ||
-      '',
+      localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail'),
     token: localStorage.getItem('token') || sessionStorage.getItem('token'),
-    balance: null, // Balance bilgisi null veya number olabilir
+    balance: null as number | null, // Balance bilgisi null veya number olabilir
   });
 
   // Kullanıcının balance bilgisi backend'den çekilir
@@ -65,10 +48,4 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 // Context'i kullanmak için özel hook oluşturuyoruz
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
-};
+export const useUser = () => useContext(UserContext);

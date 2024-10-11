@@ -3,15 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // useNavigate'i ekledik
 import '../assets/css/Games.css'; // Stil dosyasını import edelim
 
-interface Game {
-  id: number;
-  title: string;
-  providerName: string;
-  thumb: {
-    url: string;
-  };
-}
-
 const Games: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [searchTerm, setSearchTerm] = useState('');

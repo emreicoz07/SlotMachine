@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(255, 69, 0, 0.8));
+  background: linear-gradient(rgb(0 0 0 / 80%), rgb(255 69 0 / 80%));
   background-size: cover;
   background-position: center;
   text-align: center;
@@ -21,7 +21,7 @@
   background-color: #000;
   border: 3px solid gold;
   border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 70%);
 }
 
 .slot-machine-header {
@@ -32,7 +32,7 @@
   font-size: 2.5rem;
   font-weight: bold;
   color: gold;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 10px rgb(0 0 0 / 50%);
 }
 
 .slot-machine {
@@ -45,7 +45,7 @@
   margin-bottom: 20px;
 }
 
-/*ANIMATION SECTION BE CAREFULL */
+/* ANIMATION SECTION BE CAREFULL */
 
 .reel {
   background-color: #ffff;
@@ -56,6 +56,7 @@
   border: 1px solid gold;
   border-radius: 20px;
 }
+
 img {
   width: 120px; /* Genişliği 100px olarak ayarlıyoruz */
   height: auto; /* Yüksekliği 100px olarak ayarlıyoruz */
@@ -75,6 +76,7 @@ img {
   from {
     transform: translateY(-120px);
   }
+
   to {
     transform: translateY(
       240px
@@ -82,7 +84,7 @@ img {
   }
 }
 
-/*BUTON SECTION*/
+/* BUTON SECTION */
 
 .balance-and-button {
   display: flex;
@@ -103,7 +105,7 @@ img {
   text-shadow: 1px 1px 2px black;
   border-radius: 10px;
   margin-right: 10px; /* Spin butonu ile arada boşluk bırakır */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 50%);
   transition:
     background-color 0.3s ease,
     color 0.3s ease,
@@ -141,7 +143,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   display: flex;
   flex-direction: column; /* İçeriği dikey hizalamak için column düzeni */
   justify-content: center;
@@ -151,7 +153,7 @@ img {
   color: gold;
   font-size: 12rem;
   font-weight: bold;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 5px rgb(0 0 0 / 50%);
   visibility: hidden;
   opacity: 0;
   transition:
@@ -167,5 +169,5 @@ img {
 .win-overlay p {
   font-size: 5rem; /* Altındaki yazının boyutunu biraz küçültüyoruz */
   margin-top: 20px; /* WIN yazısının altına boşluk eklemek için */
-  color: rgb(255, 0, 0); /* Yazı rengi beyaz olabilir */
+  color: rgb(255 0 0); /* Yazı rengi beyaz olabilir */
 }

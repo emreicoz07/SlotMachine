@@ -1,4 +1,8 @@
 // ReelComponent.tsx
+interface ReelProps {
+  symbol: string;
+  spinning: boolean;
+}
 const Reel = ({ symbol, spinning }: { symbol: string; spinning: boolean }) => {
   console.log('Reel Symbol:', symbol); // Gelen sembolleri kontrol etmek için log.
 

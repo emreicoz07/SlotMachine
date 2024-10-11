@@ -16,7 +16,6 @@ const Navbar: React.FC = () => {
     sessionStorage.removeItem('userEmail');
 
     setUser({ email: null, token: null, balance: 0 });
-
     navigate('/login');
   };
 

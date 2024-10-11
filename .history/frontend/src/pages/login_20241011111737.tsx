@@ -9,7 +9,7 @@ const Login: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const { user, setUser } = useUser(); // Burada user'ı da alıyoruz
+  const { setUser } = useUser(); // Kullanıcıyı güncellemek için setUser
 
   const setToken = (token: string, remember: boolean) => {
     const now = new Date();
@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       localStorage.setItem('userEmail', email); // Kullanıcı e-postasını kaydet
 
       // Kullanıcı bilgilerini güncelle
-      setUser({ email, token: data.token, balance: user?.balance || 0 });
+      setUser({ email, token: data.token, balance: user.balance || 0 });
 
       setMessage('Login successful!');
       navigate('/games');

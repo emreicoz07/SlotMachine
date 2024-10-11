@@ -1,34 +1,37 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+} from 'react';
 import axios from 'axios';
 
-// Kullanıcı arayüzü (type veya interface olarak tanımlanabilir)
+// Kullanıcı arayüzü
 interface User {
   email: string | null;
   token: string | null;
   balance: number | null;
 }
 
-// Context oluşturma
-const UserContext = createContext<
-  | {
-      user: User;
-      setUser: React.Dispatch<React.SetStateAction<User>>;
-      updateUserBalance: (newBalance: number) => void;
-    }
-  | undefined
->(undefined);
+// Context tipi
+interface UserContextType {
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+  updateUserBalance: (newBalance: number) => void;
+}
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+// Başlangıç değerleri için UserContext oluşturulur
+const UserContext = createContext<UserContextType | null>(null);
+
+export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>({
     email:
-      localStorage.getItem('userEmail') ||
-      sessionStorage.getItem('userEmail') ||
-      '',
+      localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail'),
     token: localStorage.getItem('token') || sessionStorage.getItem('token'),
-    balance: null, // Balance bilgisi null veya number olabilir
+    balance: null,
   });
 
-  // Kullanıcının balance bilgisi backend'den çekilir
   useEffect(() => {
     const fetchUserBalance = async () => {
       if (user.email) {
@@ -49,11 +52,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     fetchUserBalance();
   }, [user.email]);
 
-  // Kullanıcının balance bilgisini güncelleyen fonksiyon
   const updateUserBalance = (newBalance: number) => {
     setUser((prevUser) => {
-      localStorage.setItem('userBalance', newBalance.toString()); // LocalStorage'da balance'ı güncelle
-      return { ...prevUser, balance: newBalance }; // Balance number olarak güncellenir
+      localStorage.setItem('userBalance', newBalance.toString());
+      return { ...prevUser, balance: newBalance };
     });
   };
 
@@ -64,7 +66,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Context'i kullanmak için özel hook oluşturuyoruz
+// Context'i kullanmak için özel hook
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {

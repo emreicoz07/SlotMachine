@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Kullanıcı arayüzü (type veya interface olarak tanımlanabilir)
 interface User {
-  email: string | null;
+  email: string;
   token: string | null;
   balance: number | null;
 }
