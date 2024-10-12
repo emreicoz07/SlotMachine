@@ -15,13 +15,13 @@
   display: flex;
   justify-content: center; /* Ortalamak için */
   gap: 20px; /* Arama ve filtreleme kutusu arasındaki boşluk */
-  margin: 20px auto 30px 100px;
+  margin: 20px auto 50px 10px;
   max-width: 20%; /* input ölçüsü */
 }
 
-.search-filter-container input[type="text"],
-.search-filter-container select {
-  padding: 12px;
+.search-filter-container input[type="text"]
+{
+  padding: 15px;
   border-radius: 25px;
   border: 1px solid #ff4500;
   font-size: 1rem;
@@ -33,12 +33,10 @@
   flex: 2; /* Arama kutusu daha geniş */
 }
 
-.search-filter-container select {
-  flex: 1; /* Filtreleme kutusu daha dar */
-}
 
-.search-filter-container input[type="text"]:focus,
-.search-filter-container select:focus {
+
+.search-filter-container input[type="text"]:focus
+{
   outline: none;
   box-shadow: 0 4px 12px rgb(255 69 0 / 50%);
 }

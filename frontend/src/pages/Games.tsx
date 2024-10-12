@@ -15,7 +15,6 @@ interface Game {
 const Games: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProvider, setSelectedProvider] = useState('');
   const [showPopup, setShowPopup] = useState(false); // Popup state
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Giriş yapıldı mı kontrolü
   const navigate = useNavigate();
@@ -47,16 +46,6 @@ const Games: React.FC = () => {
   useEffect(() => {
     fetchGames(searchTerm);
   }, [searchTerm]);
-
-  /*   const filteredGames = games.filter((game) => {
-    const matchesSearch = game.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesProvider = selectedProvider
-      ? game.providerName === selectedProvider
-      : true;
-    return matchesSearch && matchesProvider;
-  }); */
 
   const handleGameClick = (gameId: number) => {
     if (!isLoggedIn) {
@@ -90,15 +79,6 @@ const Games: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <select
-            value={selectedProvider}
-            onChange={(e) => setSelectedProvider(e.target.value)}
-          >
-            <option value="">All Providers</option>
-            <option value="Play'n GO">Play'n GO</option>
-            <option value="Pragmatic Play">Pragmatic Play</option>
-            <option value="Yggdrasil">Yggdrasil</option>
-          </select>
         </div>
         <div className="games-list">
           {games.map((game) => (
