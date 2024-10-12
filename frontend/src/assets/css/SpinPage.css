@@ -9,11 +9,11 @@
   background-position: center;
   text-align: center;
   color: white;
-  padding: 100px 20px 20px; /* Yukarıdan boşluk için padding-top eklenir */
+  padding: 100px 20px 20px;
 }
 
-.slot-machine-container,
-.spinresult {
+.slot-machine-container {
+  margin-top: 100px;
   position: relative;
   width: 80%;
   max-width: 800px;
@@ -45,8 +45,7 @@
   margin-bottom: 20px;
 }
 
-/* ANIMATION SECTION BE CAREFULL */
-
+/* ANIMATION SECTION */
 .reel {
   background-color: #ffff;
   width: 150px;
@@ -55,16 +54,23 @@
   position: relative;
   border: 1px solid gold;
   border-radius: 20px;
-}
-
-img {
-  width: 120px; /* Genişliği 100px olarak ayarlıyoruz */
-  height: auto; /* Yüksekliği 100px olarak ayarlıyoruz */
+  display: flex; /* Flexbox ile düzenlemeyi etkinleştiriyoruz */
+  justify-content: center; /* Yatayda ortalama */
+  align-items: center; /* Dikeyde ortalama */
 }
 
 .symbols {
   position: absolute;
   width: 150px;
+  height: 120px;
+  display: flex; /* Flexbox ile düzenlemeyi etkinleştiriyoruz */
+  justify-content: center; /* Yatayda ortalama */
+  align-items: center; /* Dikeyde ortalama */
+}
+
+img {
+  margin-top: 10px;
+  width: 120px;
   height: 120px;
 }
 
@@ -76,7 +82,6 @@ img {
   from {
     transform: translateY(-120px);
   }
-
   to {
     transform: translateY(
       240px
@@ -84,33 +89,32 @@ img {
   }
 }
 
-/* BUTON SECTION */
-
+/* BUTTON SECTION */
 .balance-and-button {
   display: flex;
-  justify-content: center; /* Yatayda tam ortalama */
-  align-items: center; /* Dikeyde tam ortalama */
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
-  width: 100%; /* Alanı tam genişletmek için */
+  width: 100%;
   max-width: 600px;
-  gap: 10px; /* Aradaki boşluk */
+  gap: 10px;
 }
 
 .balance-container {
-  flex: 1; /* Geniş alan kaplamasını sağlar */
+  flex: 1;
   background-color: #222;
   padding: 10px;
   color: gold;
   font-size: 1.25rem;
   text-shadow: 1px 1px 2px black;
   border-radius: 10px;
-  margin-right: 10px; /* Spin butonu ile arada boşluk bırakır */
+  margin-right: 10px;
   box-shadow: 0 4px 8px rgb(0 0 0 / 50%);
   transition:
     background-color 0.3s ease,
     color 0.3s ease,
     transform 0.2s ease;
-  text-align: center; /* Metin ortalanır */
+  text-align: center;
 }
 
 .spin-button {
@@ -145,11 +149,11 @@ img {
   height: 100%;
   background: rgb(0 0 0 / 50%);
   display: flex;
-  flex-direction: column; /* İçeriği dikey hizalamak için column düzeni */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(10px); /* Arka plan bulanıklaştırma */
+  backdrop-filter: blur(10px);
   color: gold;
   font-size: 12rem;
   font-weight: bold;
@@ -167,7 +171,138 @@ img {
 }
 
 .win-overlay p {
-  font-size: 5rem; /* Altındaki yazının boyutunu biraz küçültüyoruz */
-  margin-top: 20px; /* WIN yazısının altına boşluk eklemek için */
-  color: rgb(255 0 0); /* Yazı rengi beyaz olabilir */
+  font-size: 5rem;
+  margin-top: 20px;
+  color: rgb(255 0 0);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .slot-machine-container {
+    width: 90%;
+  }
+
+  .spin-button {
+    padding: 20px;
+    font-size: 1.3rem;
+  }
+
+  .balance-container {
+    font-size: 1.1rem;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slot-machine-header {
+    font-size: 2rem;
+  }
+
+  .balance-and-button {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .spin-button {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.2rem;
+    margin-right: 0;
+  }
+
+  .balance-container {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .win-overlay {
+    font-size: 10rem;
+  }
+
+  .win-overlay p {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .spin-page {
+    padding: 50px 10px;
+  }
+
+  .slot-machine-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .slot-machine-header {
+    font-size: 1.5rem;
+  }
+
+  .balance-and-button {
+    gap: 10px;
+  }
+
+  .spin-button {
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .balance-container {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .win-overlay {
+    font-size: 8rem;
+  }
+
+  .win-overlay p {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .spin-page {
+    padding: 20px;
+  }
+
+  .slot-machine-header {
+    font-size: 1.2rem;
+  }
+
+  .balance-container {
+    font-size: 0.9rem;
+  }
+
+  .spin-button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .win-overlay {
+    font-size: 6rem;
+  }
+
+  .win-overlay p {
+    font-size: 2.5rem;
+  }
 }

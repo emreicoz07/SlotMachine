@@ -134,10 +134,6 @@ const SpinPage: React.FC = () => {
         WIN
         <p>You Won: {winningsAmount} Coins!</p>
       </div>
-
-      {spinResult && (
-        <p className="spinresult">Spin Result: {spinResult.join(', ')}</p>
-      )}
     </div>
   );
 };
