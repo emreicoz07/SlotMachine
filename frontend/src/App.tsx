@@ -8,6 +8,7 @@ import Games from './pages/Games';
 import ChangePassword from './pages/ChangePassword';
 import { UserProvider } from './contexts/UserContext'; // UserProvider import edildi
 import SpinPage from './pages/SpinPage';
+import { ToastContainer } from 'react-toastify';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
       </Router>
+      <ToastContainer></ToastContainer>
     </UserProvider>
   );
 };

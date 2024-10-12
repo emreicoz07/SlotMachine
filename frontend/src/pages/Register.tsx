@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate'i import ediyoruz
+import { toast } from 'react-toastify'; // Toastify'ı import et
+import 'react-toastify/dist/ReactToastify.css'; // Toastify'ın stillerini import et
 import '../assets/css/Register.css';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate(); // useNavigate hook'u ile yönlendirme işlemi
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // İşlem başladığında loading aktif
 
     // Şifre eşleşmesini kontrol et
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
+      toast.error('Passwords do not match', {
+        position: 'top-center',
+        autoClose: 3000, // 3 saniye sonra kaybolacak
+      });
+      setLoading(false); // İşlem tamamlanınca loading pasif
+      console.log('asdasda');
       return;
     }
 
@@ -30,16 +38,20 @@ const Register: React.FC = () => {
     );
 
     const data = await response.json();
+    setLoading(false); // İşlem Tamamlanınca Loading pasif
 
     if (response.ok) {
-      setMessage('Registration successful!');
+      toast.success('Registration successful!', {
+        position: 'top-center',
+        autoClose: 2000, // 2 saniye sonra kaybolacak
+      });
 
-      // Kayıt başarılı olduğunda login sayfasına yönlendirme
-      setTimeout(() => {
-        navigate('/login'); // Login sayfasına yönlendirme
-      }, 2000); // 2 saniye bekleyip yönlendirme yapılıyor
+      navigate('/login'); // Login sayfasına yönlendirme
     } else {
-      setMessage(data.message || 'Registration failed');
+      toast.error(data.message || 'Registration failed', {
+        position: 'top-center',
+        autoClose: 3000, // 3 saniye sonra kapanacak
+      });
     }
   };
 
@@ -76,7 +88,7 @@ const Register: React.FC = () => {
         </div>
         <button type="submit">Register</button>
       </form>
-      <p>{message}</p>
+      {loading && <div className="spinner">Loading...</div>}
     </div>
   );
 };
