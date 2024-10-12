@@ -14,29 +14,23 @@
 .search-filter-container {
   display: flex;
   justify-content: center; /* Ortalamak için */
-  gap: 20px; /* Arama ve filtreleme kutusu arasındaki boşluk */
-  margin: 20px auto 50px 10px;
+  margin: 20px auto 50px -10px;
   max-width: 20%; /* input ölçüsü */
 }
 
-.search-filter-container input[type="text"]
-{
+.search-filter-container input[type='text'] {
   padding: 15px;
-  border-radius: 25px;
   border: 1px solid #ff4500;
   font-size: 1rem;
   box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
   transition: box-shadow 0.3s ease-in-out;
 }
 
-.search-filter-container input[type="text"] {
+.search-filter-container input[type='text'] {
   flex: 2; /* Arama kutusu daha geniş */
 }
 
-
-
-.search-filter-container input[type="text"]:focus
-{
+.search-filter-container input[type='text']:focus {
   outline: none;
   box-shadow: 0 4px 12px rgb(255 69 0 / 50%);
 }
@@ -56,14 +50,15 @@
   margin: 0 auto; /* Ortalamak için */
 }
 
-
 .game-item {
   background-color: white;
   width: 280px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .game-item:hover {
@@ -96,19 +91,24 @@
   .games-list {
     grid-template-columns: repeat(3, 1fr); /* 1440px için 3 kolon */
   }
+  .search-filter-container {
+    margin-left: 0px;
+  }
 }
 
 @media (width <= 1024px) {
   .games-list {
     grid-template-columns: repeat(3, 1fr); /* 1024px için 2 kolon */
   }
+  .search-filter-container {
+    margin: 20px auto 50px 10px;
+  }
 }
 
 @media (width <= 768px) {
   .search-filter-container {
     width: 100%;
-    padding-left: 50px;    
-    
+    padding-left: 50px;
   }
 
   .games-list {
@@ -117,6 +117,9 @@
 
   .game-item {
     width: 100%; /* Tam genişlikte görünmesi */
+  }
+  .search-filter-container {
+    margin: 20px auto 50px 2px;
   }
 }
 
@@ -141,6 +144,10 @@
     grid-template-columns: repeat(1, 1fr); /* 375px için 1 kolon */
     padding: 0 10px; /* İçeriklerin kenara yapışmasını önle */
   }
+
+  .search-filter-container {
+    margin-left: 10px;
+  }
 }
 
 @media (width <= 320px) {
@@ -153,8 +160,11 @@
     grid-template-columns: repeat(1, 1fr);
     padding: 0 10px;
   }
+  .search-filter-container {
+    margin-left: 40px;
+  }
 }
-
+/*---------------------WIN MESSAGE*--------------------/
 /* Arka plan bulanıklaştırma */
 .blurred {
   filter: blur(5px);
