@@ -8,13 +8,14 @@
   top: 0;
   position: fixed;
   z-index: 10; /* Sayfanın üstünde kalmasını sağladık */
+  padding: 10px 20px; /* Ekstra padding ile mobil uyumluluk sağladık */
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
-  margin: 15px; /* Varsayılan marginleri sıfırladık */
+  margin: 15px;
 }
 
 .nav-links li {
@@ -38,9 +39,9 @@
 }
 
 .user-info {
-  display: flex; /* Flexbox kullanarak öğeleri hizaladık */
+  display: flex;
   align-items: center;
-  gap: 10px; /* Aradaki boşluğu daha düzgün hale getirdik */
+  gap: 10px;
   margin-right: 5px;
 }
 
@@ -68,4 +69,72 @@ button:hover {
 .slot-machine-icon {
   width: 50px;
   height: 50px;
+}
+
+/* Responsive Medya Sorguları */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 15px;
+    font-size: 0.9rem; /* Link boyutlarını küçült */
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .slot-machine-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .nav-links {
+    gap: 10px;
+    font-size: 0.8rem;
+  }
+
+  .user-info span {
+    font-size: 0.85rem;
+  }
+
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .slot-machine-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 425px) {
+  .navbar {
+    padding: 15px;
+  }
+
+  .nav-links {
+    gap: 5px;
+    font-size: 0.75rem; /* Küçük ekranlarda yazı boyutu biraz küçülür */
+  }
+
+  .user-info span {
+    font-size: 0.8rem;
+  }
+
+  button {
+    padding: 7px 8px;
+    font-size: 0.8rem;
+  }
+
+  .slot-machine-icon {
+    width: 30px;
+    height: 30px;
+  }
 }
