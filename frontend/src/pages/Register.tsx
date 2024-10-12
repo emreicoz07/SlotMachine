@@ -19,10 +19,15 @@ const Register: React.FC = () => {
     if (password !== confirmPassword) {
       toast.error('Passwords do not match', {
         position: 'top-center',
-        autoClose: 3000, // 3 saniye sonra kaybolacak
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
       });
       setLoading(false); // İşlem tamamlanınca loading pasif
-      console.log('asdasda');
       return;
     }
 
@@ -43,14 +48,26 @@ const Register: React.FC = () => {
     if (response.ok) {
       toast.success('Registration successful!', {
         position: 'top-center',
-        autoClose: 2000, // 2 saniye sonra kaybolacak
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        autoClose: 3000, // 3 saniye sonra kaybolacak
       });
 
       navigate('/login'); // Login sayfasına yönlendirme
     } else {
       toast.error(data.message || 'Registration failed', {
         position: 'top-center',
-        autoClose: 3000, // 3 saniye sonra kapanacak
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
       });
     }
   };

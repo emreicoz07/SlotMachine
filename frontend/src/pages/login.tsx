@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/Login.css';
 import { useUser } from '../contexts/UserContext'; // useUser hook'unu import ediyoruz
+import { toast } from 'react-toastify'; // Toastify'ı import et
+import 'react-toastify/dist/ReactToastify.css'; // Toastify'ın stillerini import et
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message] = useState('');
   const navigate = useNavigate();
   const { user, setUser } = useUser(); // Burada user'ı da alıyoruz
 
@@ -40,16 +42,34 @@ const Login: React.FC = () => {
     const data = await response.json();
 
     if (response.ok) {
+      toast.success('Login successful!', {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        autoClose: 3000, // 3 saniye sonra kaybolacak
+      });
       setToken(data.token, rememberMe);
       localStorage.setItem('userEmail', email); // Kullanıcı e-postasını kaydet
 
       // Kullanıcı bilgilerini güncelle
       setUser({ email, token: data.token, balance: user?.balance || 0 });
 
-      setMessage('Login successful!');
       navigate('/games');
     } else {
-      setMessage(data.message || 'Login failed');
+      toast.error(data.message || 'Login failed', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
     }
   };
 
