@@ -100,7 +100,7 @@ button:hover {
   }
 
   .user-info span {
-    font-size: 0.85rem;
+    display: none;
   }
 
   button {
@@ -125,7 +125,7 @@ button:hover {
   }
 
   .user-info span {
-    font-size: 0.8rem;
+    display: none;
   }
 
   button {
