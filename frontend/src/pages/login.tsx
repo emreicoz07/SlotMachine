@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/Login.css';
-import { useUser } from '../contexts/UserContext'; // useUser hook'unu import ediyoruz
-import { toast } from 'react-toastify'; // Toastify'ı import et
-import 'react-toastify/dist/ReactToastify.css'; // Toastify'ın stillerini import et
+import { useUser } from '../contexts/UserContext'; // useUser hook import
+import { toast } from 'react-toastify'; // Toastify import
+import 'react-toastify/dist/ReactToastify.css'; // Toastify Styles import
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,16 +11,16 @@ const Login: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [message] = useState('');
   const navigate = useNavigate();
-  const { user, setUser } = useUser(); // Burada user'ı da alıyoruz
+  const { user, setUser } = useUser();
 
   const setToken = (token: string, remember: boolean) => {
     const now = new Date();
     if (remember) {
-      const expirationTime = now.getTime() + 30 * 24 * 60 * 60 * 1000; // 30 gün
+      const expirationTime = now.getTime() + 30 * 24 * 60 * 60 * 1000; // TOKEN  30 days
       localStorage.setItem('token', token);
       localStorage.setItem('tokenExpiry', expirationTime.toString());
     } else {
-      const expirationTime = now.getTime() + 8 * 60 * 60 * 1000; // 8 saat
+      const expirationTime = now.getTime() + 8 * 60 * 60 * 1000; // TOKEN 8 hours
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('tokenExpiry', expirationTime.toString());
     }
@@ -50,12 +50,12 @@ const Login: React.FC = () => {
         draggable: true,
         progress: undefined,
         theme: 'dark',
-        autoClose: 3000, // 3 saniye sonra kaybolacak
+        autoClose: 3000, // 3 Second later close
       });
       setToken(data.token, rememberMe);
-      localStorage.setItem('userEmail', email); // Kullanıcı e-postasını kaydet
+      localStorage.setItem('userEmail', email); // User E-mail
 
-      // Kullanıcı bilgilerini güncelle
+      // User info save
       setUser({ email, token: data.token, balance: user?.balance || 0 });
 
       navigate('/games');
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
         </p>
         <p>
           <Link to="/change-password">Forgot your password? Click here!</Link>{' '}
-          {/* Şifre Değiştirme Linki */}
+          {/* Password Change Link */}
         </p>
       </form>
       <p>{message}</p>

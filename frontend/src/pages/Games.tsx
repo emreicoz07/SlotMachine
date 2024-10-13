@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // useNavigate'i ekledik
-import '../assets/css/Games.css'; // Stil dosyasını import edelim
+import { useNavigate } from 'react-router-dom'; // useNavigate added
+import '../assets/css/Games.css'; // Style import
 
 interface Game {
   id: number;
@@ -16,7 +16,7 @@ const Games: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showPopup, setShowPopup] = useState(false); // Popup state
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Giriş yapıldı mı kontrolü
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Login Check
   const navigate = useNavigate();
 
   // Fetch games from the backend
@@ -34,6 +34,7 @@ const Games: React.FC = () => {
   };
 
   // Token kontrolü ve giriş yapılmadıysa login sayfasına yönlendirme
+  // Token Check
   useEffect(() => {
     const token =
       localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -54,7 +55,7 @@ const Games: React.FC = () => {
     if (!isLoggedIn) {
       setShowPopup(true); // Giriş yapılmamışsa popup'ı aç
     } else {
-      navigate(`/spin/${gameId}`); // Giriş yapılmışsa spin sayfasına yönlendir
+      navigate(`/spin/${gameId}`); // Navigate Game
     }
   };
 
@@ -76,7 +77,7 @@ const Games: React.FC = () => {
   return (
     <div className="games-page">
       <div className={`games-container ${showPopup ? 'blurred' : ''}`}>
-        {/* Popup varsa arka plan bulanık */}
+        {/* Popup Background */}
         <div className="search-filter-container">
           <input
             type="text"
@@ -100,7 +101,7 @@ const Games: React.FC = () => {
         </div>
       </div>
 
-      {/* Popup bölümü */}
+      {/* Popup */}
       {showPopup && (
         <div className="popup">
           <div className="popup-content">

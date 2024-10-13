@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/ChangePassword.css'; // Stil dosyasını import ediyoruz
+import '../assets/css/ChangePassword.css'; // Style files import
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//Change password section
 const ChangePassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
@@ -26,7 +27,7 @@ const ChangePassword: React.FC = () => {
     );
 
     const data = await response.json();
-
+    // If password change successfull
     if (response.ok) {
       toast.success('Password change successful!', {
         position: 'top-center',
@@ -38,7 +39,7 @@ const ChangePassword: React.FC = () => {
         theme: 'dark',
         autoClose: 3000,
       });
-      navigate('/login'); // Başarılı olursa login sayfasına yönlendirme
+      navigate('/login'); // Login navigate
     } else {
       data.errors.forEach((error: { msg: string }) => {
         toast.error(error.msg, {
