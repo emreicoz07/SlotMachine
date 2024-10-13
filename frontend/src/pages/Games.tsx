@@ -19,6 +19,7 @@ const Games: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Giriş yapıldı mı kontrolü
   const navigate = useNavigate();
 
+  // Fetch games from the backend
   const fetchGames = async (query?: string) => {
     let url = `${process.env.REACT_APP_API_URL}/api/games`;
     if (query && query.length > 0) {
@@ -32,21 +33,23 @@ const Games: React.FC = () => {
     }
   };
 
+  // Token kontrolü ve giriş yapılmadıysa login sayfasına yönlendirme
   useEffect(() => {
-    // Sayfa her yüklendiğinde token kontrolü yapıyoruz
     const token =
       localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true); // Eğer token varsa kullanıcı giriş yapmıştır
+    if (!token) {
+      navigate('/login'); // Eğer token yoksa login sayfasına yönlendir
     } else {
-      setIsLoggedIn(false); // Token yoksa giriş yapılmamış
+      setIsLoggedIn(true); // Eğer token varsa kullanıcı giriş yapmıştır
     }
-  }, []);
+  }, [navigate]);
 
+  // Fetch games based on the search term
   useEffect(() => {
     fetchGames(searchTerm);
   }, [searchTerm]);
 
+  // Handle when a game is clicked
   const handleGameClick = (gameId: number) => {
     if (!isLoggedIn) {
       setShowPopup(true); // Giriş yapılmamışsa popup'ı aç
@@ -55,22 +58,24 @@ const Games: React.FC = () => {
     }
   };
 
+  // Close the popup
   const handlePopupClose = () => {
-    setShowPopup(false); // Popup'ı kapatma işlevi
+    setShowPopup(false);
   };
 
+  // Redirect to the login page
   const handleLoginRedirect = () => {
-    navigate('/login'); // Login sayfasına yönlendir
+    navigate('/login');
   };
 
+  // Redirect to the registration page
   const handleRegisterRedirect = () => {
-    navigate('/register'); // Register sayfasına yönlendir
+    navigate('/register');
   };
 
   return (
     <div className="games-page">
       <div className={`games-container ${showPopup ? 'blurred' : ''}`}>
-        {' '}
         {/* Popup varsa arka plan bulanık */}
         <div className="search-filter-container">
           <input
