@@ -1,7 +1,11 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { createUser, findUserByEmail, updateUserPassword } from '../models/userModel';
+import {
+  createUser,
+  findUserByEmail,
+  updateUserPassword,
+} from '../models/userModel';
 import { check, validationResult } from 'express-validator';
 import dotenv from 'dotenv';
 
@@ -10,20 +14,27 @@ dotenv.config();
 // Kayıt işlemi için doğrulamalar
 export const registerValidation = [
   check('email', 'Please include a valid email').isEmail(),
-  check('password', 'Password must be 6 or more characters').isLength({ min: 6 }),
+  check('password', 'Password must be 6 or more characters').isLength({
+    min: 6,
+  }),
 ];
 
 // Login işlemi için doğrulamalar
 export const loginValidation = [
   check('email', 'Please include a valid email').isEmail(),
-  check('password', 'Password is required and must be at least 6 characters').isLength({ min: 6 }),
+  check(
+    'password',
+    'Password is required and must be at least 6 characters',
+  ).isLength({ min: 6 }),
 ];
 
 // Şifre değiştirme işlemi için doğrulamalar
 export const changePasswordValidation = [
   check('email', 'Please include a valid email').isEmail(),
   check('oldPassword', 'Old password is required').exists(),
-  check('newPassword', 'New password must be 6 or more characters').isLength({ min: 6 }),
+  check('newPassword', 'New password must be 6 or more characters').isLength({
+    min: 6,
+  }),
 ];
 
 // Kullanıcı kaydı
@@ -46,7 +57,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await createUser(email, hashedPassword);
 
-    res.status(201).json({ message: 'User registered successfully', user: newUser });
+    res
+      .status(201)
+      .json({ message: 'User registered successfully', user: newUser });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: 'Server error', error: error.message });
@@ -73,7 +86,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'default_secret', { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET || 'default_secret',
+      { expiresIn: '1h' },
+    );
 
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
@@ -86,7 +103,10 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 };
 
 // Şifre değiştirme işlevi
-export const changePassword = async (req: Request, res: Response): Promise<void> => {
+export const changePassword = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { email, oldPassword, newPassword } = req.body;
 
   try {
@@ -116,7 +136,10 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
 };
 
 // Kullanıcının balance bilgisini almak için yeni bir endpoint
-export const getUserBalance = async (req: Request, res: Response): Promise<void> => {
+export const getUserBalance = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { email } = req.params;
 
   try {

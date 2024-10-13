@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate'i import ediyoruz
-import { toast } from 'react-toastify'; // Toastify'ı import et
-import 'react-toastify/dist/ReactToastify.css'; // Toastify'ın stillerini import et
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/Register.css';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
-  const navigate = useNavigate(); // useNavigate hook'u ile yönlendirme işlemi
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // İşlem başladığında loading aktif
+    setLoading(true);
 
-    // Şifre eşleşmesini kontrol et
     if (password !== confirmPassword) {
       toast.error('Passwords do not match', {
         position: 'top-center',
@@ -27,39 +26,64 @@ const Register: React.FC = () => {
         progress: undefined,
         theme: 'dark',
       });
-      setLoading(false); // İşlem tamamlanınca loading pasif
+      setLoading(false);
       return;
     }
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/auth/register`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
         },
-        body: JSON.stringify({ email, password }),
-      },
-    );
+      );
 
-    const data = await response.json();
-    setLoading(false); // İşlem Tamamlanınca Loading pasif
+      const data = await response.json();
+      setLoading(false);
 
-    if (response.ok) {
-      toast.success('Registration successful!', {
-        position: 'top-center',
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-        autoClose: 3000, // 3 saniye sonra kaybolacak
-      });
-
-      navigate('/login'); // Login sayfasına yönlendirme
-    } else {
-      toast.error(data.message || 'Registration failed', {
+      if (response.ok) {
+        toast.success('Registration successful!', {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+          autoClose: 3000,
+        });
+        navigate('/login');
+      } else if (data.errors) {
+        data.errors.forEach((error: { msg: string }) => {
+          toast.error(error.msg, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+          });
+        });
+      } else {
+        toast.error(data.message || 'Registration failed', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      }
+    } catch (error) {
+      toast.error('An error occurred. Please try again later.', {
         position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
@@ -69,6 +93,7 @@ const Register: React.FC = () => {
         progress: undefined,
         theme: 'dark',
       });
+      setLoading(false);
     }
   };
 
@@ -103,7 +128,9 @@ const Register: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Registering...' : 'Register'}
+        </button>
       </form>
       {loading && <div className="spinner">Loading...</div>}
     </div>
