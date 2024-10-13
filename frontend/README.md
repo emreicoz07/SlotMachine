@@ -1,15 +1,15 @@
 
-# Casino Web Application - Backend
+# Casino Web Application - Frontend
 
-This project is the backend part of a web application that allows users to play virtual casino games. This document contains information about the setup, API endpoints, and other details of the backend.
+This project is the frontend part of a web application that allows users to play virtual casino games. This document contains instructions on setting up the frontend, the main features, and other details.
 
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
-- [API Endpoints](#api-endpoints)
-- [Database](#database)
-- [Tests](#tests)
+- [Available Scripts](#available-scripts)
+- [Pages and Components](#pages-and-components)
+- [Styling](#styling)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -17,97 +17,83 @@ This project is the backend part of a web application that allows users to play 
 
 - User registration and login
 - Token-based authentication (JWT)
-- User balance management
-- Reading game data from a JSON file
-- Testing with Jest
-- PostgreSQL integration with Sequelize
+- "Remember Me" functionality for extended session handling
+- Game listing with search functionality
+- Spin page with slot machine animation
+- Password change functionality
+- Toast notifications using React Toastify
 
 ## Installation
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/emreicoz07/SlotMachine/tree/fea0bbfcb847725e66a01cdc5b1cc215d20b2a09/backend
+   git clone https://github.com/emreicoz07/SlotMachine/tree/fea0bbfcb847725e66a01cdc5b1cc215d20b2a09/frontend
    ```
 
 2. **Install Dependencies:**
    Navigate to the project directory and install necessary dependencies:
    ```bash
-   cd backend
+   cd frontend
    npm install
    ```
 
-3. **Database Setup:**
-   Make sure PostgreSQL is installed, and create your database. Then, run migrations:
-   ```bash
-   npx sequelize-cli db:migrate
-   ```
-
-4. **Run the Backend:**
+3. **Run the Frontend:**
    To run the application in development mode:
    ```bash
-   npm run dev
+   npm start
    ```
 
-   To run in production mode:
+   This will run the app on `http://localhost:3000`.
+
+4. **Build the Application:**
+   To build the project for production, use:
    ```bash
-   npm run start
+   npm run build
    ```
 
 ## Environment Variables
 
-The following variables should be defined in a `.env` file for the application to run:
+Make sure to create a `.env` file in the root of the project and define the following variables:
 
 ```
-DATABASE_URL=your_database_url
-JWT_SECRET=your_jwt_secret_key
+REACT_APP_API_URL=https://slotmachine-w5ff.onrender.com
+JWT_SECRET=mysecretkey
+
 ```
 
-## API Endpoints
+This will allow the frontend to communicate with your backend API.
 
-### User Registration
-- URL: `POST /api/auth/register`
-- Description: Registers a new user.
-- Request:
-  ```json
-  {
-    "email": "example@mail.com",
-    "password": "password123"
-  }
-  ```
+## Available Scripts
 
-### User Login
-- URL: `POST /api/auth/login`
-- Description: Logs in an existing user.
-- Request:
-  ```json
-  {
-    "email": "example@mail.com",
-    "password": "password123"
-  }
-  ```
+In the project directory, you can run the following scripts:
 
-### Game Data
-- URL: `GET /api/games`
-- Description: Returns game data in JSON format.
+- `npm start` - Starts the development server.
+- `npm run build` - Builds the application for production.
+- `npm run lint` - Lints the code using ESLint.
+- `npm run format` - Formats the code using Prettier.
 
-## Database
+## Pages and Components
 
-This project uses PostgreSQL. The database schema includes:
-- **Users**: Stores user account information (email, password).
-- **Games**: Casino game information is read from a JSON file.
+The project includes several key pages and components:
 
-## Tests
+- **Register.tsx** - Handles user registration. After successful registration, the user is redirected to the login page.
+- **Login.tsx** - Handles user login, including "Remember Me" functionality for session management.
+- **SpinPage.tsx** - Contains the logic for the slot machine spin, including displaying random symbols and handling winnings.
+- **Games.tsx** - Lists all available games and includes a search functionality.
+- **ChangePassword.tsx** - Allows users to change their passwords.
 
-The project uses [Jest](https://jestjs.io/) for testing. To run the tests:
-```bash
-npm run test
-```
+## Styling
+
+CSS files are located in the `src/assets/css` directory. Each page and component has its own dedicated CSS file for styling:
+
+- **Register.css**
+- **Login.css**
+- **SpinPage.css**
+- **Games.css**
+- **ChangePassword.css**
 
 ## Contributing
 
-If you would like to contribute, please submit a pull request or open an issue. Contributions are welcome! 
+If you would like to contribute, please submit a pull request or open an issue. Contributions are welcome!
 
-EMRE ICOZ
-s
-
-
+EMRE ICOZ 13-10-2024
