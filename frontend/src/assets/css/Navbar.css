@@ -122,6 +122,7 @@ button:hover {
   .nav-links {
     gap: 5px;
     font-size: 0.75rem; /* Küçük ekranlarda yazı boyutu biraz küçülür */
+    margin-right: -15px;
   }
 
   .user-info span {

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/ChangePassword.css'; // Stil dosyasını import ediyoruz
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ChangePassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [message] = useState('');
   const navigate = useNavigate();
 
   const handleChangePassword = async (e: React.FormEvent) => {
@@ -26,10 +28,30 @@ const ChangePassword: React.FC = () => {
     const data = await response.json();
 
     if (response.ok) {
-      setMessage('Password changed successfully!');
-      setTimeout(() => navigate('/login'), 2000); // Başarılı olursa login sayfasına yönlendirme
+      toast.success('Password change successful!', {
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        autoClose: 3000,
+      });
+      navigate('/login'); // Başarılı olursa login sayfasına yönlendirme
     } else {
-      setMessage(data.message || 'Password change failed');
+      data.errors.forEach((error: { msg: string }) => {
+        toast.error(error.msg, {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      });
     }
   };
 
