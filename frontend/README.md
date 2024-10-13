@@ -1,46 +1,113 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Casino Web Application - Backend
 
-## Available Scripts
+This project is the backend part of a web application that allows users to play virtual casino games. This document contains information about the setup, API endpoints, and other details of the backend.
 
-In the project directory, you can run:
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [API Endpoints](#api-endpoints)
+- [Database](#database)
+- [Tests](#tests)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- User registration and login
+- Token-based authentication (JWT)
+- User balance management
+- Reading game data from a JSON file
+- Testing with Jest
+- PostgreSQL integration with Sequelize
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/emreicoz07/SlotMachine/tree/fea0bbfcb847725e66a01cdc5b1cc215d20b2a09/backend
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install Dependencies:**
+   Navigate to the project directory and install necessary dependencies:
+   ```bash
+   cd backend
+   npm install
+   ```
 
-### `npm run build`
+3. **Database Setup:**
+   Make sure PostgreSQL is installed, and create your database. Then, run migrations:
+   ```bash
+   npx sequelize-cli db:migrate
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Run the Backend:**
+   To run the application in development mode:
+   ```bash
+   npm run dev
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   To run in production mode:
+   ```bash
+   npm run start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Environment Variables
 
-### `npm run eject`
+The following variables should be defined in a `.env` file for the application to run:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+DATABASE_URL=your_database_url
+JWT_SECRET=your_jwt_secret_key
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API Endpoints
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### User Registration
+- URL: `POST /api/auth/register`
+- Description: Registers a new user.
+- Request:
+  ```json
+  {
+    "email": "example@mail.com",
+    "password": "password123"
+  }
+  ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### User Login
+- URL: `POST /api/auth/login`
+- Description: Logs in an existing user.
+- Request:
+  ```json
+  {
+    "email": "example@mail.com",
+    "password": "password123"
+  }
+  ```
 
-## Learn More
+### Game Data
+- URL: `GET /api/games`
+- Description: Returns game data in JSON format.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Database
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project uses PostgreSQL. The database schema includes:
+- **Users**: Stores user account information (email, password).
+- **Games**: Casino game information is read from a JSON file.
+
+## Tests
+
+The project uses [Jest](https://jestjs.io/) for testing. To run the tests:
+```bash
+npm run test
+```
+
+## Contributing
+
+If you would like to contribute, please submit a pull request or open an issue. Contributions are welcome! 
+
+EMRE ICOZ
+s
+
+
