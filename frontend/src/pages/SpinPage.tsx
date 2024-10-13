@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../contexts/UserContext';
+import { useNavigate } from 'react-router-dom'; // useNavigate for redirection
 import '../assets/css/SpinPage.css';
 import Reel from '../components/ReelComponent';
 
@@ -16,6 +17,7 @@ const SpinPage: React.FC = () => {
   const [isWin, setIsWin] = useState<boolean>(false);
   const [showWinOverlay, setShowWinOverlay] = useState<boolean>(false);
   const [winningsAmount, setWinningsAmount] = useState<number>(0);
+  const navigate = useNavigate(); // Hook for redirection
 
   const fruitImages: { [key: string]: string } = {
     lemon: lemonImage,
@@ -25,56 +27,64 @@ const SpinPage: React.FC = () => {
   };
 
   const getRandomNumber = () => {
-    return Math.floor(Math.random() * 4); // 4 meyve olduğu için
+    return Math.floor(Math.random() * 4); // 4 fruits available
   };
 
-  // Spin başlamadan önce rastgele semboller gösterilsin
+  // Redirect to login if the user is not logged in
   useEffect(() => {
-    const fruits = Object.keys(fruitImages); // Sembol isimlerini al
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); // Redirect to login page if no token is found
+    }
+  }, [navigate]);
+
+  // Initialize spin symbols when the page loads
+  useEffect(() => {
+    const fruits = Object.keys(fruitImages); // Get fruit symbols
     const a = getRandomNumber();
     const b = getRandomNumber();
     const c = getRandomNumber();
-    setSpinResult([fruits[a], fruits[b], fruits[c]]); // Rastgele semboller ayarla
+    setSpinResult([fruits[a], fruits[b], fruits[c]]); // Set random symbols initially
   }, []);
 
-  // Spin başlatma ve durdurma işlevi
+  // Spin function to start and stop reels
   const handleSpin = async () => {
     try {
-      // Backend'den balance bilgisini güncelle
+      // Fetch the balance from the backend before spinning
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/auth/balance/${user.email}`,
       );
       const { balance: currentBalance } = response.data;
 
-      // Eğer bakiyeniz sıfırsa uyarı ver ve spin işlemini durdur
+      // If balance is zero, alert and stop the spin
       if (currentBalance === 0) {
         alert('Your balance is 0. Please contact the game provider.');
-        return; // Spin işlemini başlatma
+        return;
       }
 
-      // Kullanıcının bakiyesi güncellenir
+      // Update user balance
       updateUserBalance(currentBalance);
 
       setIsSpinning(true);
       setIsWin(false);
 
-      const spinDuration = 2500; // Makaraların döneceği toplam süre
-      const spinInterval = 500; // Makaraların kaç ms'de bir döneceğiz
+      const spinDuration = 2500; // Total duration of spin
+      const spinInterval = 500; // Interval for reel changes
 
-      // Spin işlemi başlamadan önce interval başlatıyoruz
+      // Start the interval to simulate spinning reels
       const intervalId = setInterval(() => {
         const a = getRandomNumber();
         const b = getRandomNumber();
         const c = getRandomNumber();
 
-        const fruits = Object.keys(fruitImages); // Sembol isimlerini al
-        const resulttt = [fruits[a], fruits[b], fruits[c]];
-        setSpinResult(resulttt);
+        const fruits = Object.keys(fruitImages); // Get fruit symbols
+        setSpinResult([fruits[a], fruits[b], fruits[c]]);
       }, spinInterval);
 
-      // Spin sonuçlarını simüle ederek belirli bir süre sonra durduruyoruz
+      // Stop spinning after the spinDuration and fetch the result from the backend
       setTimeout(async () => {
-        clearInterval(intervalId); // Makaraları durdur
+        clearInterval(intervalId); // Stop the reels
 
         try {
           const response = await axios.post(
@@ -85,14 +95,14 @@ const SpinPage: React.FC = () => {
           );
           const { result, winnings, balance: newBalance } = response.data;
 
-          setSpinResult(result); // Spin sonuçlarını ayarla
-          updateUserBalance(newBalance); // Kullanıcı bakiyesini güncelle
+          setSpinResult(result); // Set the final spin result
+          updateUserBalance(newBalance); // Update balance
 
           if (winnings > 0) {
             setIsWin(true);
             setWinningsAmount(winnings);
             setShowWinOverlay(true);
-            setTimeout(() => setShowWinOverlay(false), 3000); // WIN ekranını 3 saniye sonra gizle
+            setTimeout(() => setShowWinOverlay(false), 3000); // Hide win overlay after 3 seconds
           }
 
           setIsSpinning(false);
@@ -100,7 +110,7 @@ const SpinPage: React.FC = () => {
           console.error('Error spinning:', error);
           setIsSpinning(false);
         }
-      }, spinDuration); // Makaraları spinDuration süresi sonunda durdur
+      }, spinDuration);
     } catch (error) {
       console.error('Error fetching user balance:', error);
     }
@@ -122,14 +132,14 @@ const SpinPage: React.FC = () => {
           <button
             className="spin-button"
             onClick={handleSpin}
-            disabled={isSpinning || user.balance === 0} // balance 0 ise buton disabled
+            disabled={isSpinning || user.balance === 0}
           >
             Spin
           </button>
         </div>
       </div>
 
-      {/* WIN Ekranı */}
+      {/* WIN Overlay */}
       <div className={`win-overlay ${showWinOverlay ? 'show' : ''}`}>
         WIN
         <p>You Won: {winningsAmount} Coins!</p>
